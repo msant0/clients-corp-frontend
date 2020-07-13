@@ -15,6 +15,7 @@ module.exports = {
     EMPTY_EMAIL_FIELD: 'Empty Email Field',
     EMPTY_TELEPHONE_FIELD: 'Empty Telephone Field',
     INVALID_CPF_VALIDATION: 'Invalid CPF validation',
+    INVALID_TELEPHONE_VALIDATION: 'Telephone Invalid',
 
     ERROR_MESSAGE_WHEN_DELETING_CLIENT: 'Error deleting the client, try again',
     ERROR_MESSAGE_WHEN_REGISTERING_CLIENT:'Error when registering, try again',

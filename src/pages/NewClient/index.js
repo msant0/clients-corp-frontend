@@ -4,6 +4,7 @@ import logoCardiology from '../../assets/cardiology.png'
 import constants from '../../helpers/constants.js'
 import validarCPF from 'validar-cpf'
 import Swal from 'sweetalert2'
+import InputMask from 'react-input-mask'
 import api from '../../services/api.js'
 import './styles.css'
 
@@ -55,6 +56,14 @@ export default function NewClient() {
         if (telephone === '') {
             Swal.fire({
                 title: constants.EMPTY_TELEPHONE_FIELD,
+                icon: 'error'
+            })
+            errorsValidation = true
+        }
+
+        if(telephone.replace(/\(/g, '').replace(/\)/g, '').replace(' ', '').length < 11){
+            Swal.fire({
+                title: constants.INVALID_TELEPHONE_VALIDATION,
                 icon: 'error'
             })
             errorsValidation = true
@@ -121,8 +130,8 @@ export default function NewClient() {
                         <p>{constants.TITLE_FOR_DATA_INFORMATION}</p>
                         <input placeholder='CPF' value={CPF} onChange={e => setCPF(e.target.value)} />
                         <input placeholder='Name' value={name} onChange={e => setName(e.target.value)} />
-                        <input placeholder='E-mail' value={email} onChange={e => setEmail(e.target.value)} />
-                        <input placeholder='Telephone' value={telephone} onChange={e => setTelephone(e.target.value)} />
+                        <input type='email' placeholder='E-mail' value={email} onChange={e => setEmail(e.target.value)} required/>
+                        <InputMask type='tel' mask="(99) 999999999" maskChar={null} placeholder='Telephone' value={telephone} onChange={e => setTelephone(e.target.value)} />
                         <button className='button' type='submit'>{constants.REGISTER_NEW_CUSTOMER}</button>
                         <Link to='/'><button className='button'>{constants.BUTTON_TO_RETURN_DASHBOARD}</button></Link>
                     </form>
