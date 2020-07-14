@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link,  useHistory } from 'react-router-dom'
 import validarCPF from 'validar-cpf'
 import Swal from 'sweetalert2'
+import InputMask from 'react-input-mask'
 import logoCardiology from '../../assets/cardiology.png'
 import constants from '../../helpers/constants.js'
 import api from '../../services/api.js'
@@ -55,6 +56,14 @@ export default function EditClient() {
         if (telephone === '') {
             Swal.fire({
                 title: constants.EMPTY_TELEPHONE_FIELD,
+                icon: 'error'
+            })
+            errorsValidation = true
+        }
+
+        if(telephone.replace(/\(/g, '').replace(/\)/g, '').replace(' ', '').length < 11){
+            Swal.fire({
+                title: constants.INVALID_TELEPHONE_VALIDATION,
                 icon: 'error'
             })
             errorsValidation = true
@@ -121,8 +130,8 @@ export default function EditClient() {
                         <p>{constants.TITLE_FOR_DATA_INFORMATION}</p>
                         <input placeholder='CPF' value={CPF} onChange={e => setCPF(e.target.value)} />
                         <input placeholder='Name' value={name} onChange={e => setName(e.target.value)} />
-                        <input placeholder='E-mail' value={email} onChange={e => setEmail(e.target.value)} />
-                        <input placeholder='Telephone' value={telephone} onChange={e => setTelephone(e.target.value)} />
+                        <input type='email' placeholder='E-mail' value={email} onChange={e => setEmail(e.target.value)} />
+                        <InputMask type='tel' mask="(99) 999999999" placeholder='Telephone' value={telephone} onChange={e => setTelephone(e.target.value)} />
                         <button className='button' type='submit'>{constants.BUTTON_EDIT_CLIENT}</button>
                         <Link to='/'><button className='button'>{constants.BUTTON_TO_RETURN_DASHBOARD}</button></Link>
                     </form>
