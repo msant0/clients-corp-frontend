@@ -12,7 +12,7 @@ export default function EditClient() {
     const [CPF, setCPF] = useState(sessionStorage.getItem('client-cpf'))
     const [name, setName] = useState(sessionStorage.getItem('client-name'))
     const [email, setEmail] = useState(sessionStorage.getItem('client-email'))
-    const [telephone, setTelephone] = useState(sessionStorage.getItem('client-telephone'))
+    let [telephone, setTelephone] = useState(sessionStorage.getItem('client-telephone'))
     const history = useHistory()
     let errorsValidation = false
 
@@ -60,8 +60,8 @@ export default function EditClient() {
             })
             errorsValidation = true
         }
-
-        if(telephone.replace(/\(/g, '').replace(/\)/g, '').replace(' ', '').length < 11){
+        telephone = telephone.replace(/\(/g, '').replace(/\)/g, '').replace(' ', '').replace('_', '')
+        if(telephone.length < 11){
             Swal.fire({
                 title: constants.INVALID_TELEPHONE_VALIDATION,
                 icon: 'error'

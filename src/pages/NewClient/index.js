@@ -12,7 +12,7 @@ export default function NewClient() {
     const [CPF, setCPF] = useState('')
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
-    const [telephone, setTelephone] = useState('')
+    let [telephone, setTelephone] = useState('')
     const history = useHistory()
     let errorsValidation = false
 
@@ -61,7 +61,9 @@ export default function NewClient() {
             errorsValidation = true
         }
 
-        if(telephone.replace(/\(/g, '').replace(/\)/g, '').replace(' ', '').length < 11){
+        telephone = telephone.replace(/\(/g, '').replace(/\)/g, '').replace(' ', '').replace('_', '')
+
+        if(telephone.length < 11){
             Swal.fire({
                 title: constants.INVALID_TELEPHONE_VALIDATION,
                 icon: 'error'
